@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build/dist
+dist/
+build/
+*.zip
+
+# Logs
+*.log
+logs/
+
+# Local Claude state (not part of the bundle)
+.claude/
+~/.claude/
+
+# User data that may end up here during development
+wb_*.json
+wb_*.txt
+wb_*.csv
+WB_*.html
+WB_*.pdf
+WB_*.xlsx
+*_reviews.json
+wb_<*>/
