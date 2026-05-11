@@ -1,6 +1,6 @@
 # Claude Code Dashboard
 
-> Веб-дашборд для запуска агентов [Claude Code](https://github.com/anthropics/claude-code) одной кнопкой — с прогресс-баром, экспортом результатов в TXT/PDF и двумя готовыми Wildberries-агентами «из коробки».
+> Веб-дашборд для запуска агентов [Claude Code](https://github.com/anthropics/claude-code) одной кнопкой — с прогресс-баром, экспортом результатов в TXT/PDF и тремя готовыми Wildberries-агентами «из коробки».
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4)](https://www.microsoft.com/windows)
@@ -12,10 +12,11 @@
 
 Локальный сервер на 127.0.0.1, который сканирует ваши агенты и скиллы Claude Code, собирает из них красивый дашборд и позволяет запускать их в headless-режиме без копания в терминале. Удобно, когда хочется быстро дёрнуть агента из браузера, увидеть прогресс и забрать результат.
 
-В комплекте — два готовых агента под Wildberries:
+В комплекте — три готовых агента под Wildberries:
 
 - 📸 **wb-photo-downloader** — скачивает все фото товара по артикулу или URL.
 - 📊 **wb-review-analyst** — собирает отзывы с фильтрацией по `nm_id` (без шума от соседних вариаций imt-группы) и выдаёт структурированный анализ + план действий.
+- 🚚 **wb-supply-planner** — тянет продажи и остатки из Seller API, считает скорость продаж и формирует CSV-план распределения поставки по кластерам и складам WB (с учётом целевой оборачиваемости, недоступных складов, акций и индекса локализации). Требует WB API-токен с правом «Статистика».
 
 > **Целевая ОС:** Windows 10 / 11
 
@@ -54,7 +55,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 - Копирует файлы:
   - `~/.claude/registry/` — UI-сервер, build-скрипт, переводы, иконка
   - `~/.claude/agents/` — определения агентов (`.md` с YAML-frontmatter)
-  - `~/wb_download.py`, `~/wb_reviews.py` — WB-скрипты в домашней папке
+  - `~/wb_download.py`, `~/wb_reviews.py`, `~/wb_supply_planner.py` — WB-скрипты в домашней папке
 - Устанавливает `Pillow` через pip (если pip есть)
 - Добавляет 2 хука в `~/.claude/settings.json` (с merge, если файл уже существует):
   - `PostToolUse` для Edit/Write/MultiEdit → пересборка дашборда при изменении агентов
@@ -73,9 +74,12 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 %USERPROFILE%\.claude\settings.json     +2 хука: PostToolUse, SessionStart
 %USERPROFILE%\wb_download.py            Скрипт скачивания фото WB
 %USERPROFILE%\wb_reviews.py             Скрипт скачивания отзывов WB
+%USERPROFILE%\wb_supply_planner.py      Скрипт планировщика поставок WB
+%USERPROFILE%\.wb_token                 (опц.) WB API-токен для wb-supply-planner
 %USERPROFILE%\Desktop\Мои агенты.lnk    Ярлык-лаунчер
 %USERPROFILE%\Desktop\wb_<артикул>\     Папка с фото после запуска агента
 %USERPROFILE%\Desktop\wb_<артикул>_reviews.json   JSON с отзывами
+%USERPROFILE%\Desktop\wb_supply_plan_<YYYY-MM-DD>.csv  CSV-план поставки
 ```
 
 ---

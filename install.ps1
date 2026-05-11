@@ -66,9 +66,10 @@ Copy-Item (Join-Path $agentsSrc '*.md') $agentsDst -Force
 OK "agents → $agentsDst"
 
 Info 'Copying WB scripts...'
-Copy-Item (Join-Path $scriptsSrc 'wb_download.py') $home_ -Force
-Copy-Item (Join-Path $scriptsSrc 'wb_reviews.py')  $home_ -Force
-OK "wb_download.py + wb_reviews.py → $home_"
+Copy-Item (Join-Path $scriptsSrc 'wb_download.py')       $home_ -Force
+Copy-Item (Join-Path $scriptsSrc 'wb_reviews.py')        $home_ -Force
+Copy-Item (Join-Path $scriptsSrc 'wb_supply_planner.py') $home_ -Force
+OK "wb_download.py + wb_reviews.py + wb_supply_planner.py → $home_"
 
 # --- Install Pillow (best-effort) ---
 $pip = Get-Command pip -ErrorAction SilentlyContinue
